@@ -9,12 +9,7 @@ app.use('/comment', commentRouter)
 
 
 app.get('/', (req, res)=> {
-  let comment = [{
-    user: 'username',
-    commentAt: new Date(),
-    courseComment: 'content of comment'
-  }]
-  res.render('comment/index', {comment: comment})  
+  res.send('Waiting for login')
 })
 
 app.listen(5000)

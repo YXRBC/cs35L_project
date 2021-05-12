@@ -13,9 +13,8 @@ router.get('/new', (req, res) => {
 router.get('/rate', (req, res) => {
     res.render('comment/rate')
 } )
-router.get('comment',(req,res)=>{
-    console.log(comment)
-    res.render('../comment/index',{comment:comment})
+router.get('/classpage',(req,res)=>{
+    res.render('comment/index', {comment: comment})  
 })
 
 router.post('/', async(req,res) =>{
@@ -26,7 +25,7 @@ router.post('/', async(req,res) =>{
     }
     comment.push(new_comment)
     console.log(comment)
-    res.redirect('/')
+    res.redirect('/comment/classpage')
 })
 
 module.exports = router
