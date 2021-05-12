@@ -8,7 +8,10 @@
 </head>
 <body>
     <div class="container">
-      this is new course comment
+      <h1 class="mb-4">Post new course comment</h1>
+      <form action="/comment" method="POST" >
+        <%- include('_form_fields')%>
+    </form>
     </div>
 </body>
 </html>

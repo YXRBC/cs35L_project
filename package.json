@@ -1,5 +1,5 @@
 {
-  "name": "cs35L_project",
+  "name": "cs35l_project",
   "version": "1.0.0",
   "description": "A web application that supports searching, rating, and commenting of UCLA engineering courses.",
   "main": "index.js",
