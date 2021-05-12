@@ -8,8 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <h1 class = "mb-4">Class Page</h1>
-        <a href="/comment/new" class = "btn btn-success">Post comment</a>
+        <h1 class = "mb-4">Class Page for "Course Title"</h1>
+        <div class="form-group">
+            <h3>Basic Course Information:</h3>
+            <h5>Professors:</h5>
+            <h5>Course Content Summary:</h5>
+            <h5>Overall Rating:</h5>
+        </div>
+        <a href="/comment/new" class = "btn btn-success">Post new comment</a>
 
         <% comment.forEach(comment => { %>
             <div class ="card mt-4">
