@@ -19,13 +19,8 @@ router.get('/classpage',(req,res)=>{
 })
 
 router.post('/useful', (req,res) =>{
-    console.log(req.body.user)
-    /*
-    for(i = 0; i <comment.length; i++){
-        if(comment[i][user]===req.body.user && comment[i][courseComment]===req.body.courseComment){
-            comment[i][usefulness] += 1
-        }
-    }*/
+    let num = req.body.com
+    comment[num].usefulness ++
     res.redirect('/comment/classpage')
 })
 
