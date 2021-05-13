@@ -42,7 +42,14 @@
                     <div class="card-text mb-2">
                         <%= comment.courseComment%>
                     </div>
-                </div>
+                    <div>
+                        <form action="/comment/useful" method="POST">
+                            <input type="hidden" id="com" name="com" value="<%=comment%>">
+                        <button type="submit">useful?</input> </button>
+                        </form>
+                        <%= comment.usefulness%>
+                    </div>
+                </div>%>
             </div>
             <% }) %>
     </div>
