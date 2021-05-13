@@ -8,12 +8,41 @@
 </head>
 <body>
     <div class="container">
-        <h1 class = "mb-4">Class Page for "Course Title"</h1>
+        <% if(class_id.name != null){%>
+        <h1 class = "mb-4">Class Page for <%= class_id.name%></h1>
         <div class="form-group">
-            <h3>Basic Course Information:</h3>
-            <h5>Professors:</h5>
-            <h5>Course Content Summary:</h5>
-            <h5>Overall Rating:</h5>
+            <h3>Basic Course Information: <%= class_id.info%></h3>
+            <h5>Professors: <%= class_id.professors%></h5>
+            <h5>Course Content Summary: <%= class_id.summary%></h5>
+            <h5>Overall Rating: <%= class_id.overall_rating%></h5>
+        </div>
+        <% } %>
+
+        <div>
+            <tr class="attr-row">
+            <td>
+                <form action="/comment/rate" method="POST">
+                    <input type="hidden" id="rate" name="rate" value='1'>
+                    <button type="submit">1 😡</input> </button>
+                </form>
+                <form action="/comment/rate" method="POST">
+                    <input type="hidden" id="rate" name="rate" value='2'>
+                    <button type="submit">2 😢</input> </button>
+                </form>
+                <form action="/comment/rate" method="POST">
+                    <input type="hidden" id="rate" name="rate" value='3'>
+                    <button type="submit">3 🙂</input> </button>
+                </form>
+                <form action="/comment/rate" method="POST">
+                    <input type="hidden" id="rate" name="rate" value='4'>
+                    <button type="submit">4 😊</input> </button>
+                </form>
+                <form action="/comment/rate" method="POST">
+                    <input type="hidden" id="rate" name="rate" value='3'>
+                    <button type="submit">5 😍</input> </button>
+                </form>
+            </td>
+            </tr>
         </div>
 
         <div>
