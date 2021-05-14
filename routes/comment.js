@@ -26,6 +26,8 @@ router.get('/classpage',(req,res)=>{
     res.render('comment/index', {comment: comment, class_id: class_id})  
 })
 
+
+
 router.post('/useful', (req,res) =>{
     let num = req.body.com
     comment[num].usefulness ++
