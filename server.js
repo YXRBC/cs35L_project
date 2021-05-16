@@ -2,11 +2,9 @@ const express = require('express')
 const commentRouter = require('./routes/comment')
 const searchRouter = require('./routes/search')
 const app = express()
-var path = require('path');
+const path = require('path');
 
-app.set('views', path.join(__dirname, 'views'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: false}))
 app.use('/comment', commentRouter)

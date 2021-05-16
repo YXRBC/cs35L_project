@@ -4,7 +4,7 @@ const router = express.Router()
 
 
 router.get('/',(req,res)=>{
-    res.render('search/search.html')  
+    res.render('search/search',(''))  
 })
 
 module.exports = router
