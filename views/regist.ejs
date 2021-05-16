@@ -2,27 +2,28 @@
 <html lang='en'>
 <head>
 
-<title>Login</title>
+<title>register</title>
 <%- include('head');-%>
 
 
 </head>
 <body>
 
-  <h3>Login</h3>
+  <h3>register</h3>
 
   <div class="form-box">
-    <form class="form1" action="/users/login" method="post">
+    <form class="form1" action="/users/regist" method="post">
       <input type="text" name="username" value="" placeholder="please enter your username">
       <input type="password" name="password" value="" placeholder="please enter your password">
-      <input class="submit" type="submit" value="login">
+      <input type="password" name="password2" value="" placeholder="please confirm your password">
+      <input class="submit" type="submit" value="register">
     </form>
 
 <div>
 
   </div>
 
-  <div>Does not have an account? <a href="/regist">register now</a></div>
+  <div>already have account? <a href="/login">login</a></div>
   </div>
 
 </body>

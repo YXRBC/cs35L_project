@@ -13,4 +13,4 @@ app.get('/', (req, res)=> {
     res.send('waiting for homepage')
 })
 
-app.listen(5000)
+app.listen(3000)
