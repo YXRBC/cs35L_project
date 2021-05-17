@@ -4,7 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-
+const mongoose = require('mongoose')
+const url=require('db')
 const indexRouter= require('./routes/index')
 const commentRouter = require('./routes/comment')
 const app = express()
@@ -14,6 +15,19 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 app.use('/comment', commentRouter)
 app.use('/',indexRouter)
+
+const connectionParams={
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true 
+}
+mongoose.connect(url,connectionParams)
+    .then( () => {
+        console.log('Connected to database ')
+    })
+    .catch( (err) => {
+        console.error(`Error connecting to the database. \n${err}`);
+    })
 
 app.get('/', (req, res)=> {
     res.send('waiting for homepage')
@@ -34,5 +48,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 app.listen(3000)
