@@ -87,6 +87,8 @@ router.post('/addition',(req,res)=>{
 
 })
 
+
+
 router.post('/useful', (req,res) =>{
     let num = req.body.com
     comment[num].usefulness ++
