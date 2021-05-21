@@ -7,14 +7,14 @@ var comment = [{
     courseComment: 'content of comment',
     usefulness:0
   }]
-var class_id = {
+var class_id = [{
     name: 'class_name',
     info: 'basic_info',
     professors: 'prof_name',
     summary:'course_content_summary',
     overall_rating: 0,
     num_rating: 0
-}
+}]
 
 router.get('/new', (req, res) => {
     res.render('comment/new')
@@ -23,7 +23,25 @@ router.get('/rate', (req, res) => {
     res.render('comment/rate')
 } )
 router.get('/classpage',(req,res)=>{
-    res.render('comment/index', {comment: comment, class_id: class_id})  
+    res.render('comment/index', {comment: comment, class_id: class_id[0]})  
+})
+router.get('/add_class',(req,res)=>{
+    res.render('comment/create')
+})
+
+router.post('/addition',(req,res)=>{
+    const new_class = {
+        name: req.body.class_name,
+        info: req.body.info,
+        professors: req.body.professor,
+        summary:req.body.summary,
+        overall_rating: 0,
+        num_rating: 0
+    }
+    class_id.push(new_class)
+    console.log(class_id)
+    res.redirect('/comment/classpage')
+
 })
 
 router.post('/useful', (req,res) =>{
