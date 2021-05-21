@@ -2,6 +2,7 @@ const { request } = require('express')
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
+const {classSchema} = require('./schema.js')
 const {url} = require('../db.js')
 
 const connectionParams={
@@ -18,14 +19,6 @@ mongoose.connect(url,connectionParams)
         console.error(`Error connecting to the database. \n${err}`);
 })
 
-var classSchema = mongoose.Schema({
-    name: String,
-    info: String,
-    professors:String,
-    summary:String,
-    overall_rating: Number,
-    num_rating:Number
-})
 var Class = mongoose.model("class",classSchema)
 
 var comment = [{
