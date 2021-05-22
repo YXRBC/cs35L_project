@@ -43,6 +43,37 @@ router.post('/regist',(req,res)=>{
 })
 
 //login API
+router.post('/regist',(req,res)=>{
+  var new_user = new User({
+    username: req.body.username,
+    password: req.body.password,
+  })
+   router.get('/login',(req,res)=>{
+       User.find({username: 'TEST1', password: 'TEST2'},function(err,response){
+        if (err){
+            console.log("can't find user or password incorrect")
+            throw err
+	    res.redirect('/login')
+        }else{
+	    //successful login, save the session
+	    req.session.username = username
+            res.redirect('/')
+	}   
+       })  
+      })  
+
+})
+
+
+
+
+
+
+
+
+
+
+
 // router.post('/login', function(req, res,next) {
 //   var data = {
 //     username: req.body.username,
