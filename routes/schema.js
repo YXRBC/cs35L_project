@@ -9,4 +9,9 @@ var classSchema = mongoose.Schema({
     num_rating:Number
 })
 
-module.exports = {classSchema}
+var userSchema = mongoose.Schema({
+    username: String,
+    password: String
+})
+
+module.exports = {classSchema, userSchema}
