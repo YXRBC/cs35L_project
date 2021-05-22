@@ -11,7 +11,8 @@ var classSchema = mongoose.Schema({
 
 var userSchema = mongoose.Schema({
     username: String,
-    password: String
+    password: String,
+    password2: String
 })
 
 module.exports = {classSchema, userSchema}
