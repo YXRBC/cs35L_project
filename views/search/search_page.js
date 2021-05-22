@@ -11,8 +11,9 @@ searchBar.addEventListener('keyup', (e) => {
 });
 const loadClasses = async () => {
     try {
-        
-        const res = await fetch('https://hp-api.herokuapp.com/api/characters');
+        var variableJSON = JSON.parse($('#variableJSON').text());
+        $('#variableJSON').remove();
+        const res = await variableJSON;
         /*const csClasses = await fetch('characters.json',{
             headers : { 
               'Content-Type': 'application/json',
