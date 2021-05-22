@@ -7,14 +7,17 @@ const session = require('express-session');
 const mongoose = require('mongoose')
 const {url} = require('./db.js')
 const indexRouter= require('./routes/index')
+const userRouter= require('./routes/users')
 const commentRouter = require('./routes/comment')
+const searchRouter = require('./routes/search')
 const app = express()
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: false}))
 app.use('/comment', commentRouter)
 app.use('/',indexRouter)
+app.use('/',userRouter)
 
 const connectionParams={
     useNewUrlParser: true,
@@ -29,6 +32,7 @@ mongoose.connect(url,connectionParams)
         console.error(`Error connecting to the database. \n${err}`);
     })
 
+app.use('/search',searchRouter)
 app.get('/', (req, res)=> {
     res.send('waiting for homepage')
 })
