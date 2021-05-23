@@ -1,6 +1,8 @@
 const classList = document.getElementById('classList');
 const searchBar=document.getElementById('searchBar')
 let csClasses = [];
+const variableJSON = JSON.parse($('#variableJSON').text());
+$('#variableJSON').remove();
 console.log(searchBar);
 searchBar.addEventListener('keyup', (e) => {
     const searchString= e.target.value.toLowerCase();
@@ -11,8 +13,7 @@ searchBar.addEventListener('keyup', (e) => {
 });
 const loadClasses = async () => {
     try {
-        var variableJSON = JSON.parse($('#variableJSON').text());
-        $('#variableJSON').remove();
+
         const res = await variableJSON;
         /*const csClasses = await fetch('characters.json',{
             headers : { 

@@ -35,6 +35,7 @@ mongoose.connect(url,connectionParams)
     })
 
 app.use('/search',searchRouter)
+app.use(express.static('public'));
 app.get('/', (req, res)=> {
     res.send('waiting for homepage')
 })

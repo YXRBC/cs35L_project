@@ -23,6 +23,10 @@ var Class = mongoose.model("class",classSchema)
 
 router.get('/',(req,res)=>{
     Class.find({},function(err, classes){
+        if (err){
+            console.log("can't find class")
+            throw err
+        }
     res.render('search/search',{
         classesList: classes
     }) } 
