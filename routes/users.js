@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require('mongoose')
 const {userSchema} = require('./schema.js')
 const {url} = require('../db.js')
+var isLogin = false;
 
 const connectionParams={
     useNewUrlParser: true,
@@ -43,24 +44,20 @@ router.post('/regist',(req,res)=>{
 })
 
 //login API
-router.post('/regist',(req,res)=>{
-  var new_user = new User({
-    username: req.body.username,
-    password: req.body.password,
-  })
-   router.get('/login',(req,res)=>{
-       User.find({username: 'TEST1', password: 'TEST2'},function(err,response){
-        if (err){
-            console.log("can't find user or password incorrect")
-            throw err
-	    res.redirect('/login')
-        }else{
-	    //successful login, save the session
-	    req.session.username = username
-            res.redirect('/')
-	}   
-       })  
-      })  
+router.post('/login',(req,res)=>{
+   User.find({username: req.body.username, password: req.body.password},function(err,response){
+    if (err){
+        console.log("can't find user or password incorrect")
+        throw err
+  res.redirect('/login')
+    }else{
+  //successful login, save the session
+  //req.session.username = username
+        isLogin = true;
+        res.redirect('/search')
+}
+     })
+
 
 })
 
@@ -96,5 +93,4 @@ router.post('/regist',(req,res)=>{
 //   })
 // })
 
-
-module.exports = router;
+module.exports = {userRouter: router, isLogin};

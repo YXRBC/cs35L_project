@@ -7,10 +7,12 @@ const session = require('express-session');
 const mongoose = require('mongoose')
 const {url} = require('./db.js')
 const indexRouter= require('./routes/index')
-const userRouter= require('./routes/users')
+const {userRouter}= require('./routes/users')
+const {isLogin} = require('./routes/users')
 const commentRouter = require('./routes/comment')
 const searchRouter = require('./routes/search')
 const app = express()
+
 
 app.set('view engine', 'ejs');
 
@@ -22,7 +24,7 @@ app.use('/',userRouter)
 const connectionParams={
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true
 }
 mongoose.connect(url,connectionParams)
     .then( () => {
