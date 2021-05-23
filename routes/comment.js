@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const {classSchema} = require('./schema.js')
+const {commentSchema} = require('./schema.js')
 const {url} = require('../db.js')
 
 //connect to database
@@ -22,16 +23,20 @@ mongoose.connect(url,connectionParams)
 
 var Class = mongoose.model("class",classSchema)
 
-var comment = [{
+var comment = mongoose.model("comment",commentSchema)
+
+/*var comment = [{
     user: 'username',
     commentAt: new Date(),
     courseComment: 'content of comment',
     usefulness:0
-  }]
+  }]*/
+
+
 
 //create new comment
 router.get('/new', (req, res) => {
-    res.render('comment/new')
+    res.render('comment/new', {comment: new comment()})
 } )
 router.get('/rate', (req, res) => {
     res.render('comment/rate')
@@ -120,16 +125,34 @@ router.post('/rate', (req,res)=>{
     //res.redirect('/comment/classpage')
 })
 
-//save new comment to database and display in classpage
-router.post('/', (req,res) =>{
-    const new_comment = {
-        user: req.body.username,
-        commentAt: new Date(),
-        courseComment: req.body.comment,
-        usefulness:0
-    }
-    comment.push(new_comment)
+
+//save new comment to database 
+router.post('/classpage', (req,res) =>{
+    var new_comment = new comment ({
+        user: req.body.user,
+        commentAt: req.body.commentAt,
+        courseComment: req.body.courseComment,
+        usefulness: req.body.usefulness
+    })
+    new_comment.save(function(err, comment){
+        if(err){
+            console.log("database error: fail to save new comment")
+        }
+        else{
+            console.log("new comment added to database")
+        }
+    })
     res.redirect('/comment/classpage')
+})
+//and display in classpage
+router.post('/classpage', (req,res) =>{
+    comment.find(function(err, obj) {   
+        if(err){
+            console.log("unsuccessful finding of comment")
+            throw err
+        }  
+        comment = obj              
+    })
 })
 
 module.exports = router

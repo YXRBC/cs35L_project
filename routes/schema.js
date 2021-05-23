@@ -15,4 +15,12 @@ var userSchema = mongoose.Schema({
     password2: String
 })
 
-module.exports = {classSchema, userSchema}
+var commentSchema = mongoose.Schema({
+    user: String,
+    commentAt: Date,
+    courseComment: String,
+    usefulness: Number
+})
+
+module.exports = {classSchema, userSchema, commentSchema}
+
