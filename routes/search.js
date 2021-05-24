@@ -21,15 +21,38 @@ mongoose.connect(url,connectionParams)
 
 var Class = mongoose.model("class",classSchema)
 
+
+
 router.get('/',(req,res)=>{
-    Class.find({},function(err, classes){
-        if (err){
-            console.log("can't find class")
-            throw err
-        }
-    res.render('search/search',{
-        classesList: classes
-    }) } 
-)})
+    var noMatch=null;
+    if(req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        // Get all classes from DB
+        Class.find({name: regex}, function(err, allClasses){
+           if(err){
+               console.log(err);
+           } else {
+              if(allClasses.length < 1) {
+                  noMatch = "No classes match that query, please try again.";
+              }
+              res.render("search/newsearch",{classesList:allClasses, noMatch: noMatch});
+           }
+        });
+    } else {
+        // Get all classes from DB
+        Class.find({}, function(err, allClasses){
+           if(err){
+               console.log(err);
+           } else {
+              res.render("search/newsearch",{classesList:allClasses, noMatch: noMatch});
+           }
+        });
+    }})
+
+    function escapeRegex(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    };
+
+
 
 module.exports = router
