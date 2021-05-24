@@ -19,6 +19,7 @@ mongoose.connect(url,connectionParams)
         console.error(`Error connecting to the database. \n${err}`);
 })
 
+
 var Class = mongoose.model("class",classSchema)
 
 var comment = [{
