@@ -35,26 +35,26 @@ var comment = mongoose.model("comment",commentSchema)
 
 //create new comment
 router.get('/new', (req, res) => {
-    res.render('comment/new', {comment: new comment()})
+    res.render('comment/new')
 } )
 router.get('/rate', (req, res) => {
     res.render('comment/rate')
 } )
 
 //display classpage
-router.get('/classpage',(req,res)=>{
+router.get('/classpage/:id',(req,res)=>{
     //req be class name ideal
     var display_class
     var display_comment
-    var name = 'TEST1'
-    Class.find({name: name},function(err,response){
+    var class_id = req.params.id
+    Class.findById(class_id).exec(function(err,response){
         if (err){
             console.log("error in finding class")
             throw err
         }
-        display_class = response[0] 
+        display_class = response
        // res.render('comment/index', {comment: display_comment, class_id: display_class}) 
-       comment.find({class: name},function(err,response){
+       comment.find({class: display_class.name},function(err,response){
         if (err){
             console.log("error in finding class")
             throw err
@@ -99,44 +99,58 @@ router.post('/addition',(req,res)=>{
             })
         }
     })
-    res.redirect('/comment/classpage')
+    res.redirect('/comment/add_class')
 })
 
 
 //update comment usefulness count
-router.post('/useful', (req,res) =>{
-    let num = req.body.com
-    comment[num].usefulness ++
-    res.redirect('/comment/classpage')
+router.post('/useful/:id', (req,res) =>{
+    var comment_id = req.params.id
+    var class_id = ''
+    comment.findOneAndUpdate({_id: comment_id}, {usefulness: usefulness+1}, function(err, response) {
+        if(err){
+            console.log("unsuccessful update of rating")
+            throw err
+        }
+        Class.find({name: response.class}, function(err_1, class_get){
+            if(err_1){
+                console.log("unsuccessful update of rating, find class")
+                throw err
+            }
+            class_id = class_get[0]._id
+            res.redirect('/comment/classpage/'+class_id)
+        })
+     })
+    //res.redirect('/comment/classpage/'+class_id)
 })
 
 //update overall rating of the class
-router.post('/rate', (req,res)=>{
+router.post('/rate/:id', (req,res)=>{
     var display_class
-    var class_name = req.body.class
-    Class.find({name: class_name},function(err,response){
+    var class_id = req.params.id
+    Class.findById(class_id).exec(function(err,response){
         if (err){
             console.log("can't find class")
             throw err
         }
-        display_class = response[0]
+        display_class = response
         let num = req.body.rate *1
         let total = (display_class.overall_rating * display_class.num_rating) + num
         let rate_num = display_class.num_rating +1
-        Class.findOneAndUpdate({name: class_name}, {overall_rating: total/rate_num, num_rating:rate_num}, function(err, response) {
+        Class.findOneAndUpdate({_id: class_id}, {overall_rating: total/rate_num, num_rating:rate_num}, function(err, response) {
             if(err){
                 console.log("unsuccessful update of rating")
                 throw err
             }
          })
-         res.redirect('/comment/classpage')
+         res.redirect('/comment/classpage/'+class_id)
     })
     //res.redirect('/comment/classpage')
 })
 
 
 //save new comment to database 
-router.post('/classpage', (req,res) =>{
+router.post('/add_comment', (req,res) =>{
     var new_comment = new comment ({
         class: req.body.class,
         user: req.body.user,
@@ -153,16 +167,6 @@ router.post('/classpage', (req,res) =>{
         }
     })
     res.redirect('/comment/classpage')
-})
-//and display in classpage
-router.post('/classpage', (req,res) =>{
-    comment.find(function(err, obj) {   
-        if(err){
-            console.log("unsuccessful finding of comment")
-            throw err
-        }  
-        display_comment = obj              
-    })
 })
 
 module.exports = router

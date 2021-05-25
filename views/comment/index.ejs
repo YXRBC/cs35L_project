@@ -22,27 +22,27 @@
             <tr class="attr-row">
             <td>
                 <%if (class_id.name != null){%>
-                <form action="/comment/rate" method="POST">
+                <form action="/comment/rate/<%=class_id._id %>" method="POST">
                     <input type="hidden" id="rate" name="rate" value='1'>
                     <input type="hidden" id="class" name="class" value= <%=class_id.name%>>
                     <button type="submit">1 😡</input> </button>
                 </form>
-                <form action="/comment/rate" method="POST">
+                <form action="/comment/rate/<%=class_id._id %>" method="POST">
                     <input type="hidden" id="rate" name="rate" value='2'>
                     <input type="hidden" id="class" name="class" value= <%=class_id.name%>>
                     <button type="submit">2 😢</input> </button>
                 </form>
-                <form action="/comment/rate" method="POST">
+                <form action="/comment/rate/<%=class_id._id %>" method="POST">
                     <input type="hidden" id="rate" name="rate" value='3'>
                     <input type="hidden" id="class" name="class" value= <%=class_id.name%>>
                     <button type="submit">3 🙂</input> </button>
                 </form>
-                <form action="/comment/rate" method="POST">
+                <form action="/comment/rate/<%=class_id._id%>" method="POST">
                     <input type="hidden" id="rate" name="rate" value='4'>
                     <input type="hidden" id="class" name="class" value= <%=class_id.name%>>
                     <button type="submit">4 😊</input> </button>
                 </form>
-                <form action="/comment/rate" method="POST">
+                <form action="/comment/rate/<%=class_id._id%>" method="POST">
                     <input type="hidden" id="rate" name="rate" value='3'>
                     <input type="hidden" id="class" name="class" value= <%=class_id.name%>>
                     <button type="submit">5 😍</input> </button>
@@ -79,7 +79,7 @@
                         <%= comment[i].courseComment%>
                     </div>
                     <div>
-                        <form action="/comment/useful" method="POST">
+                        <form action="/comment/useful/<%=comment[i]._id%>" method="POST">
                             <input type="hidden" id="com" name="com" value='<%= i %>'>
                         <button type="submit">useful?</input> </button>
                         </form>
