@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const {classSchema} = require('./schema.js')
+const {commentSchema} = require('./schema.js')
 const {url} = require('../db.js')
 
 const connectionParams={
@@ -20,7 +21,7 @@ mongoose.connect(url,connectionParams)
 })
 
 var Class = mongoose.model("class",classSchema)
-
+var comment = mongoose.model("comment",commentSchema)
 
 
 router.get('/',(req,res)=>{
@@ -48,6 +49,20 @@ router.get('/',(req,res)=>{
            }
         });
     }})
+
+    router.get("/:id", function(req, res){
+        //find the campground with provided ID
+        Class.findById(req.params.id).exec(function(err, foundClass){
+            if(err){
+                console.log(err);
+            } else {
+                console.log(foundClass)
+                //render show template with that class
+                res.render('comment/index', {comment: comment, class_id: foundClass})
+            }
+        });
+    });
+
 
     function escapeRegex(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
