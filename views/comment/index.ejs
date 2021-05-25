@@ -71,19 +71,19 @@
         <% for (var i = 0; i < comment.length; i++){ %>
             <div class ="card mt-4">
                 <div class = "card-body">
-                    <h4 class = "card-title"><%= comment.length%></h4>
+                    <h4 class = "card-title"><%= comment[i].user%></h4>
                     <div class="card-subtitle text-muted mb-2">
-                        <%= comment.length %>
+                        <%= comment[i].commentAt %>
                     </div>
                     <div class="card-text mb-2">
-                        <%= comment.courseComment%>
+                        <%= comment[i].courseComment%>
                     </div>
                     <div>
                         <form action="/comment/useful" method="POST">
                             <input type="hidden" id="com" name="com" value='<%= i %>'>
                         <button type="submit">useful?</input> </button>
                         </form>
-                        <%= comment.usefulness%>
+                        <%= comment[i].usefulness%>
                     </div>
                 </div>%>
             </div>

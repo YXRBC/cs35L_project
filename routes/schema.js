@@ -16,7 +16,7 @@ var userSchema = mongoose.Schema({
 })
 
 var commentSchema = mongoose.Schema({
-   // class: String,
+    class: String,
     user: String,
     commentAt: Date,
     courseComment: String,

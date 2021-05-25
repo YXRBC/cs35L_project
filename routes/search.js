@@ -58,9 +58,9 @@ router.get('/',(req,res)=>{
             } else {
                 console.log(foundClass)
                 //render show template with that class
-                res.render('comment/index', {comment: comment, class_id: foundClass})
+                res.redirect('/comment/classpage')
             }
-        });
+        })
     });
 
 

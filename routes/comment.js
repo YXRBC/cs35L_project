@@ -46,22 +46,23 @@ router.get('/classpage',(req,res)=>{
     //req be class name ideal
     var display_class
     var display_comment
-    Class.find({name: 'TEST1'},function(err,response){
+    var name = 'TEST1'
+    Class.find({name: name},function(err,response){
         if (err){
             console.log("error in finding class")
             throw err
         }
         display_class = response[0] 
-       // res.render('comment/index', {comment: display_comment, class_id: display_class})  
-    })
-    comment.find(function(err,response){
+       // res.render('comment/index', {comment: display_comment, class_id: display_class}) 
+       comment.find({class: name},function(err,response){
         if (err){
             console.log("error in finding class")
             throw err
         }
         display_comment = response
-    })
-    res.render('comment/index', {comment: display_comment, class_id: display_class})  
+        res.render('comment/index', {comment: display_comment, class_id: display_class}) 
+        }) 
+    }) 
 })
 
 router.get('/add_class',(req,res)=>{
@@ -137,8 +138,9 @@ router.post('/rate', (req,res)=>{
 //save new comment to database 
 router.post('/classpage', (req,res) =>{
     var new_comment = new comment ({
+        class: req.body.class,
         user: req.body.user,
-        commentAt: req.body.commentAt,
+        commentAt: Date(),
         courseComment: req.body.courseComment,
         usefulness: req.body.usefulness
     })
