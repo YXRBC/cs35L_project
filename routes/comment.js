@@ -33,8 +33,6 @@ var comment = mongoose.model("comment",commentSchema)
     usefulness:0
   }]*/
 
-
-
 //create new comment
 router.get('/new', (req, res) => {
     res.render('comment/new', {comment: new comment()})
@@ -47,16 +45,25 @@ router.get('/rate', (req, res) => {
 router.get('/classpage',(req,res)=>{
     //req be class name ideal
     var display_class
+    var display_comment
     Class.find({name: 'TEST1'},function(err,response){
         if (err){
             console.log("error in finding class")
             throw err
         }
-        display_class = response[0]
-        res.render('comment/index', {comment: comment, class_id: display_class})  
+        display_class = response[0] 
+       // res.render('comment/index', {comment: display_comment, class_id: display_class})  
     })
-    //res.render('comment/index', {comment: comment, class_id: display_class})  
+    comment.find(function(err,response){
+        if (err){
+            console.log("error in finding class")
+            throw err
+        }
+        display_comment = response
+    })
+    res.render('comment/index', {comment: display_comment, class_id: display_class})  
 })
+
 router.get('/add_class',(req,res)=>{
     res.render('comment/create')
 })
@@ -152,7 +159,7 @@ router.post('/classpage', (req,res) =>{
             console.log("unsuccessful finding of comment")
             throw err
         }  
-        comment = obj              
+        display_comment = obj              
     })
 })
 
