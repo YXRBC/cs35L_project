@@ -1,0 +1,32 @@
+body {
+  padding: 50px;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h3 {
+  color:black;
+}
+
+.form1 {
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+  margin-bottom: 15px;
+}
+
+input {
+  margin-bottom: 10px;
+  height: 4vh;
+  width: 225px;
+  letter-spacing: 1px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.submit {
+  padding: 0;
+}
