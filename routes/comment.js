@@ -34,8 +34,9 @@ var comment = mongoose.model("comment",commentSchema)
   }]*/
 
 //create new comment
-router.get('/new', (req, res) => {
-    res.render('comment/new')
+router.get('/new/:id', (req, res) => {
+    var class_id = req.params.id
+    res.render('comment/new', {class_id})
 } )
 router.get('/rate', (req, res) => {
     res.render('comment/rate')
@@ -106,21 +107,23 @@ router.post('/addition',(req,res)=>{
 //update comment usefulness count
 router.post('/useful/:id', (req,res) =>{
     var comment_id = req.params.id
-    var class_id = ''
-    comment.findOneAndUpdate({_id: comment_id}, {usefulness: usefulness+1}, function(err, response) {
-        if(err){
-            console.log("unsuccessful update of rating")
-            throw err
-        }
+    comment.findById(comment_id).exec(function(err,response){
+        var useful = response.usefulness +1
+        comment.findOneAndUpdate({_id: comment_id}, {usefulness: useful}, function(err_2, response_1) {
+            if(err_2){
+                console.log("unsuccessful update of rating")
+                throw err
+            }
+         })
         Class.find({name: response.class}, function(err_1, class_get){
             if(err_1){
                 console.log("unsuccessful update of rating, find class")
                 throw err
             }
-            class_id = class_get[0]._id
+            let class_id = class_get[0]._id
             res.redirect('/comment/classpage/'+class_id)
         })
-     })
+    })
     //res.redirect('/comment/classpage/'+class_id)
 })
 
@@ -150,23 +153,30 @@ router.post('/rate/:id', (req,res)=>{
 
 
 //save new comment to database 
-router.post('/add_comment', (req,res) =>{
-    var new_comment = new comment ({
-        class: req.body.class,
-        user: req.body.user,
-        commentAt: Date(),
-        courseComment: req.body.courseComment,
-        usefulness: req.body.usefulness
-    })
-    new_comment.save(function(err, comment){
+router.post('/add_comment/:id', (req,res) =>{
+    class_id = req.params.id
+    Class.findById(class_id).exec(function(err,response){
         if(err){
-            console.log("database error: fail to save new comment")
+            console.log("error in finding class")
+            throw err
         }
-        else{
-            console.log("new comment added to database")
-        }
+        var new_comment = new comment ({
+            class: response.name,
+            user: req.body.user,
+            commentAt: Date.now(),
+            courseComment: req.body.comment,
+            usefulness: 0
+        })
+        new_comment.save(function(err, comment){
+            if(err){
+                console.log("database error: fail to save new comment")
+            }
+            else{
+                console.log("new comment added to database")
+            }
+        })
     })
-    res.redirect('/comment/classpage')
+    res.redirect('/comment/classpage/'+class_id)
 })
 
 module.exports = router
