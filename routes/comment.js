@@ -54,20 +54,13 @@ router.get('/classpage/:id',(req,res)=>{
             throw err
         }
         display_class = response
-       // res.render('comment/index', {comment: display_comment, class_id: display_class}) 
-       comment.find({class: display_class.name},function(err,response){
+       comment.find({class: display_class.name},function(err,response_1){
         if (err){
             console.log("error in finding class")
             throw err
         }
-        ranking_arr = response
-        high_rank = ranking_arr.sort(function(a,b){return (a.usefulness-b.usefulness)})
-        display_comment = response.sort(function(a,b){return (b.commentAt-a.commentAt)})
-        if(high_rank.length > 5){
-            high_rank.length = 5
-        }
-        high_rank = high_rank.filter(element=>element.usefulness>0)
-        res.render('comment/index', {comment: display_comment, high_rank, class_id: display_class}) 
+        display_comment = response_1.sort(function(a,b){return (b.commentAt-a.commentAt)})
+        res.render('comment/index', {comment: display_comment, class_id: display_class})
         }) 
     }) 
 })
