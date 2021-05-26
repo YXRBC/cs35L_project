@@ -88,8 +88,39 @@
         <% if(class_id.name != null){%>
         <a href="/comment/new/<%=class_id._id %>" class = "btn btn-success">Post new comment</a>
         <% } %>
+        
+        <% for (var i = 0; i < high_rank.length; i++){ %>
+            <div class ="card mt-4">
+                <div class = "card-body">
+                    <h4 class = "card-title"><%= high_rank[i].user%></h4>
+                    <div class="card-subtitle text-muted mb-2">
+                        <%= high_rank[i].commentAt %>
+                    </div>
+                    <div class="card-text mb-2">
+                        <%= high_rank[i].courseComment%>
+                    </div>
+                    <div>
+                        <form action="/comment/useful/<%=comment[i]._id%>" method="POST">
+                            <input type="hidden" id="com" name="com" value='<%= i %>'>
+                        <button type="submit">useful?</input> </button>
+                        </form>
+                        <%= high_rank[i].usefulness%>
+                    </div>
+                </div>
+            </div>
+            <% } %>
 
         <% for (var i = 0; i < comment.length; i++){ %>
+            <% var repeat = false %>
+            <% for (var j = 0; j < high_rank.length; j++){ %>
+                <% if (comment[i]._id === high_rank[j]._id) {%>
+                    <% repeat = true%>
+                    <% break%>
+                <%}%>
+                <%}%>
+            <% if (repeat) {%>
+                <% continue%>
+                <%}%>
             <div class ="card mt-4">
                 <div class = "card-body">
                     <h4 class = "card-title"><%= comment[i].user%></h4>
@@ -106,7 +137,7 @@
                         </form>
                         <%= comment[i].usefulness%>
                     </div>
-                </div>%>
+                </div>
             </div>
             <% } %>
     </div>
