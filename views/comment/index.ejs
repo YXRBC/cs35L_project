@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <title>UCLA enginnering course page</title>
+    <link rel="stylesheet" href="/classpage.css">
 </head>
 <body>
     <a href="/search" class = "btn btn-success">Back to Search</a>
@@ -16,7 +17,7 @@
             <h3>Basic Course Information: <%= class_id.info%></h3>
             <h5>Professors: <%= class_id.professors%></h5>
             <h5>Course Content Summary: <%= class_id.summary%></h5>
-            <h5>Overall Rating: <%= class_id.overall_rating%></h5>
+            <h2>Overall Rating: <%= class_id.overall_rating%></h2>
         </div>
         <% } %>
 
@@ -63,9 +64,9 @@
         <pre class="tab"></pre>
 
         <div>
-            <h3>
+            <h2>
                 Student Comments:
-            </h3>
+            </h2>
         </div>
 
         <% if(class_id.name != null){%>
