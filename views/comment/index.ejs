@@ -12,12 +12,31 @@
 
     <div class="container">
         <% if(class_id.name != null){%>
-        <h1 class = "mb-4">Class Page for <%= class_id.name%></h1>
+        <h1 class = "mb-4"><%= class_id.name%></h1>
         <div class="form-group">
-            <h3>Basic Course Information: <%= class_id.info%></h3>
-            <h5>Professors: <%= class_id.professors%></h5>
-            <h5>Course Content Summary: <%= class_id.summary%></h5>
-            <h2>Overall Rating: <%= class_id.overall_rating%></h2>
+            <div class = "card-title">
+                <h3>
+            </div>
+            <div class ="card mt-4">
+                <div class = "card-body">
+                    <h3 class = "card-title">Basic Course Information: </h3>
+                    <h3><%= class_id.info%></h3>
+                </div>
+            </div>
+            <div class ="card mt-4">
+                <div class = "card-body">
+                    <h5 class = "card-title">Professors: </h5>
+                    <h5><%= class_id.professors%></h5>
+                </div>
+            </div>
+            <div class ="card mt-4">
+                <div class = "card-body">
+                    <h5 class = "card-title">Course Content Summary: </h5>
+                    <h5><%= class_id.summary%></h5>
+                </div>
+            </div>
+            <pre class="tab"></pre>
+            <h2>Overall Rating: <%= (class_id.overall_rating).toFixed(2);%></h2>
         </div>
         <% } %>
 
@@ -55,9 +74,6 @@
             </tr>
         </div>
 
-        <div>
-            <a href="/comment/rate" class = "btn btn-success" >Rate this course</a>
-        </div>
         
         <pre class="tab"></pre>
         <pre class="tab"></pre>
