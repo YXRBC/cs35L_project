@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const {classSchema} = require('./schema.js')
 const {commentSchema} = require('./schema.js')
 const {url} = require('../db.js')
+//const {isLogin} = require('./users.js')
 
 //connect to database
 const connectionParams={
@@ -26,25 +27,23 @@ var Class = mongoose.model("class",classSchema)
 
 var comment = mongoose.model("comment",commentSchema)
 
-/*var comment = [{
-    user: 'username',
-    commentAt: new Date(),
-    courseComment: 'content of comment',
-    usefulness:0
-  }]*/
 
 //create new comment
 router.get('/new/:id', (req, res) => {
+    //if(isLogin===false){
+    //    res.redirect('/login')
+    //}
     var class_id = req.params.id
     res.render('comment/new', {class_id})
-} )
-router.get('/rate', (req, res) => {
-    res.render('comment/rate')
 } )
 
 //display classpage
 router.get('/classpage/:id',(req,res)=>{
-    //req be class name ideal
+
+    //if(isLogin===false){
+    //    res.redirect('/login')
+    //}
+    
     var display_class
     var display_comment
     var class_id = req.params.id

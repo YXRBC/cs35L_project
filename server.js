@@ -37,7 +37,7 @@ mongoose.connect(url,connectionParams)
 app.use('/search',searchRouter)
 app.use(express.static('public'));
 app.get('/', (req, res)=> {
-    res.send('waiting for homepage')
+    res.redirect('/login')
 })
 
 // catch 404 and forward to error handler
