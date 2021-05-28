@@ -9,8 +9,10 @@
 <body>
     <div class="container">
       <h1 class="mb-4">Post new course comment</h1>
-      <% if(class_id != null){%>
-      <form action="/comment/add_comment/<%=class_id%>" method="POST" >
+      <% if(class_post._id != null){%>
+      <h2><%=class_post.name%></h2>
+      <h3><%=class_post.professors%></h3>
+      <form action="/comment/add_comment/<%=class_post._id%>" method="POST" >
         <%- include('_form_fields')%>
       <% } %>
     </form>
