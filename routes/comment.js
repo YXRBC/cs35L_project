@@ -5,13 +5,13 @@ const mongoose = require('mongoose')
 const {classSchema} = require('./schema.js')
 const {commentSchema} = require('./schema.js')
 const {url} = require('../db.js')
-//const {isLogin} = require('./users.js')
+var {myStorage} = require('./users.js')
 
 //connect to database
 const connectionParams={
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true, 
+    useUnifiedTopology: true,
     useFindAndModify: false
 }
 mongoose.connect(url,connectionParams)
@@ -30,9 +30,9 @@ var comment = mongoose.model("comment",commentSchema)
 
 //create new comment
 router.get('/new/:id', (req, res) => {
-    //if(isLogin===false){
-    //    res.redirect('/login')
-    //}
+    if(myStorage.getItem('isLogin')===false){
+       res.redirect('/login')
+    }
     var class_id = req.params.id
     res.render('comment/new', {class_id})
 } )
@@ -40,10 +40,10 @@ router.get('/new/:id', (req, res) => {
 //display classpage
 router.get('/classpage/:id',(req,res)=>{
 
-    //if(isLogin===false){
-    //    res.redirect('/login')
-    //}
-    
+    if(myStorage.getItem('isLogin')===false){
+       res.redirect('/login')
+    }
+
     var display_class
     var display_comment
     var class_id = req.params.id
@@ -60,8 +60,8 @@ router.get('/classpage/:id',(req,res)=>{
         }
         display_comment = response_1.sort(function(a,b){return (b.commentAt-a.commentAt)})
         res.render('comment/index', {comment: display_comment, class_id: display_class})
-        }) 
-    }) 
+        })
+    })
 })
 
 router.get('/add_class',(req,res)=>{
@@ -150,7 +150,7 @@ router.post('/rate/:id', (req,res)=>{
 })
 
 
-//save new comment to database 
+//save new comment to database
 router.post('/add_comment/:id', (req,res) =>{
     class_id = req.params.id
     Class.findById(class_id).exec(function(err,response){
@@ -160,7 +160,7 @@ router.post('/add_comment/:id', (req,res) =>{
         }
         var new_comment = new comment ({
             class: response.name,
-            user: req.body.user,
+            user: myStorage.getItem('user'),
             commentAt: Date.now(),
             courseComment: req.body.comment,
             usefulness: 0

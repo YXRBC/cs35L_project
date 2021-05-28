@@ -3,7 +3,9 @@ var router = express.Router();
 const mongoose = require('mongoose')
 const {userSchema} = require('./schema.js')
 const {url} = require('../db.js')
-var isLogin = false;
+const myStorage = require('node-sessionstorage')
+myStorage.setItem('isLogin', false);
+// var isLogin = false;
 
 const connectionParams={
     useNewUrlParser: true,
@@ -53,7 +55,10 @@ router.post('/login',(req,res)=>{
     }else{
   //successful login, save the session
   //req.session.username = username
-        isLogin = true;
+        myStorage.setItem('user', req.body.username);
+        myStorage.removeItem('isLogin');
+        myStorage.setItem('isLogin', true);
+        // console.log(isLogin)
         res.redirect('/search')
 }
      })
@@ -93,4 +98,4 @@ router.post('/login',(req,res)=>{
 //   })
 // })
 
-module.exports = {userRouter: router, isLogin};
+module.exports = {userRouter: router, myStorage};
