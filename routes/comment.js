@@ -65,7 +65,12 @@ router.get('/classpage/:id',(req,res)=>{
 })
 
 router.get('/add_class',(req,res)=>{
-    res.render('comment/create')
+  if(myStorage.getItem('isAdmin')===true){
+     res.render('comment/create')
+  } else {
+    res.render('/search')
+  }
+
 })
 
 //add a new class to the database

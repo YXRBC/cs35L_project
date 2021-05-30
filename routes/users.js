@@ -6,6 +6,7 @@ const {url} = require('../db.js')
 const myStorage = require('node-sessionstorage')
 myStorage.setItem('isLogin', false);
 // var isLogin = false;
+myStorage.setItem('isAdmin', false);
 
 const connectionParams={
     useNewUrlParser: true,
@@ -55,6 +56,10 @@ router.post('/login',(req,res)=>{
     }else{
   //successful login, save the session
   //req.session.username = username
+        if(req.body.username==='admin'){
+          myStorage.removeItem('isAdmin');
+          myStorage.setItem('isAdmin', true);
+        }
         myStorage.setItem('user', req.body.username);
         myStorage.removeItem('isLogin');
         myStorage.setItem('isLogin', true);
