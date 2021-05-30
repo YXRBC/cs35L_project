@@ -75,7 +75,7 @@ router.get('/add_class',(req,res)=>{
   if(myStorage.getItem('isAdmin')===true){
      res.render('comment/create')
   } else {
-    res.render('/search')
+    res.redirect('/search')
   }
 
 })
