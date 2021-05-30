@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const {classSchema} = require('./schema.js')
 const {commentSchema} = require('./schema.js')
 const {url} = require('../db.js')
+var {myStorage} = require('./users.js')
 
 const connectionParams={
     useNewUrlParser: true,
@@ -25,6 +26,9 @@ var comment = mongoose.model("comment",commentSchema)
 
 
 router.get('/',(req,res)=>{
+    if(myStorage.getItem('isLogin')===false){
+        res.redirect('/login')
+     }
     var noMatch=null;
     if(req.query.search) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
@@ -41,6 +45,9 @@ router.get('/',(req,res)=>{
         });
     } else {
         // Get all classes from DB
+        if(myStorage.getItem('isLogin')===false){
+            res.redirect('/login')
+         }
         Class.find({}, function(err, allClasses){
            if(err){
                console.log(err);
@@ -51,7 +58,10 @@ router.get('/',(req,res)=>{
     }})
 
     router.get("/:id", function(req, res){
-        //find the campground with provided ID
+        //find the classes with provided ID
+        if(myStorage.getItem('isLogin')===false){
+            res.redirect('/login')
+         }
         Class.findById(req.params.id).exec(function(err, foundClass){
             if(err){
                 console.log(err);

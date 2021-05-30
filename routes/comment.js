@@ -34,8 +34,15 @@ router.get('/new/:id', (req, res) => {
        res.redirect('/login')
     }
     var class_id = req.params.id
-    res.render('comment/new', {class_id})
-} )
+    Class.findById(class_id).exec(function(err,response){
+        if(err){
+            console.log("error in finding class")
+            throw err
+        }
+        class_post = response
+        res.render('comment/new', {class: class_post})
+    })
+})
 
 //display classpage
 router.get('/classpage/:id',(req,res)=>{
