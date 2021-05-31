@@ -147,9 +147,9 @@ router.post('/rate/:id', (req,res)=>{
             throw err
         }
         display_class = response
-        let num = req.body.rate *1
-        let total = (display_class.overall_rating * display_class.num_rating) + num
-        let rate_num = display_class.num_rating +1
+        var num = req.body.rate *1
+        var total = (display_class.overall_rating * display_class.num_rating) + num
+        var rate_num = display_class.num_rating +1
         Class.findOneAndUpdate({_id: class_id}, {overall_rating: total/rate_num, num_rating:rate_num}, function(err, response) {
             if(err){
                 console.log("unsuccessful update of rating")
