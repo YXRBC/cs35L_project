@@ -56,15 +56,20 @@ router.post('/login',(req,res)=>{
     }else{
   //successful login, save the session
   //req.session.username = username
-        if(req.body.username==='admin'){
-          myStorage.removeItem('isAdmin');
-          myStorage.setItem('isAdmin', true);
+        if(response.length > 0){
+          if(req.body.username==='admin'){
+            myStorage.removeItem('isAdmin');
+            myStorage.setItem('isAdmin', true);
+          }
+          myStorage.setItem('user', req.body.username);
+          myStorage.removeItem('isLogin');
+          myStorage.setItem('isLogin', true);
+          // console.log(isLogin)
+          res.redirect('/search')
+        } else {
+          res.redirect('/login')
         }
-        myStorage.setItem('user', req.body.username);
-        myStorage.removeItem('isLogin');
-        myStorage.setItem('isLogin', true);
-        // console.log(isLogin)
-        res.redirect('/search')
+
 }
      })
 
