@@ -1,11 +1,9 @@
-# SEASWALK - Web app for rating CS and EE major classes
+## SEASWALK - Web app for rating CS and EE major classes
 Over the past few years, students in CS and EE major have often complained about the bruinwalk, since they were unable to always get the information they needed efficiently for the incoming courses. Facing the same issue, our group proposed to offer a new app, Seaswalk, that is designed for evaluating courses in CS and EE departments.
 
-# Steps to run the app on your computer
-
 ## Steps before cloning and installing
-Make sure you have node.js installed in your computer. 
-Make sure you have a MongoDB Atlas database ready for use
+1. Make sure you have node.js installed in your computer. 
+2. Make sure you have a MongoDB Atlas database ready for use
 
 ## Cloning repository and installing the app for use
 Open the terminal/command line and navigate to the directory you wish to clone the repository to. Then type the following code in the command line:
@@ -20,13 +18,14 @@ npm install
 ```
 
 Make sure you have installed the following packages:
- - MongoDB Atalas
- - Express
- - Node.js
- - Cookie-parse
- - Http-errors
- - Morgan
- - Express-session
+- MongoDB Atalas
+- Express
+- Node.js
+- Cookie-parse
+- Http-errors
+- Morgan
+- Express-session
+
 If you don't have the packages installed, the code for installing the packages are:
 ```
 npm install [package name]
