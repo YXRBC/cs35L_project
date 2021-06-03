@@ -45,3 +45,12 @@ Now to run the app, in the main directory, enter the following code in the comma
 npm start
 ```
 Open `localhost:3000` or `localhost:3000/login` from your favourite browser
+
+## Creators
+-  Zhenyao Sun (Jimmy)
+-  Yuetong Xu (Rebecca)
+-  Songyu Sun (Sawyer)
+-  Jiayi Ma (Clarissa)
+-  Zongyang Yue (Eric)
+-  Harry Qin
+
